@@ -5,6 +5,8 @@ const dotenv = require('dotenv');
 const cookieParser = require('cookie-parser');
 const connectDb = require('./db');
 const UserRoute = require("./router/users");
+const QuizRoute = require("./router/quiz");
+const PortalRoute = require("./router/portal");
 
 dotenv.config();
 connectDb();
@@ -24,6 +26,8 @@ app.use(cookieParser());
 
 
 app.use('/users', UserRoute);
+app.use('/quiz', QuizRoute);
+app.use('/portal', PortalRoute);
 
 app.get('/', async(req, res) => {
    

@@ -1,0 +1,311 @@
+<head>
+  <link rel="stylesheet" href="/style/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+</head>
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+<style>
+  body{
+  background-color: #333;
+}
+</style>
+<div class="container">
+  <div id="quiz" class="p-2">
+     <h1>QuizApp</h1>
+     <ol id="questions-list" class="list-group list-group-numbered">
+       
+     </ol>
+     <button style="color: white;border-color:#fff;" class="btn btn-outline-primary mt-3">Check Your Answers</button>
+  </div>
+
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <a href="/portal"></a><button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button></a>
+        <a href="/portal"><button type="button" class="btn btn-primary">Save changes</button></a>
+      </div>
+    </div>
+  </div>
+</div> 
+
+<script>
+  const questions = [
+  "Am the life of the party.",
+  "Feel little concern for others.",
+  "Am always prepared.",
+  " Get stressed out easily",
+  "Have a rich vocabulary.",
+  "Don't talk a lot.",
+  "Am interested in people.",
+  "Leave my belongings around.",
+  "Am relaxed most of the time",
+  "Have difficulty understanding abstract ideas.",
+  "Feel comfortable around people.",
+  "Insult people.",
+  "Pay attention to details",
+  "Worry about things.",
+  "Have a vivid imagination",
+  "Keep in the background.",
+  "Sympathize with others' feelings.",
+  "Make a mess of things.",
+  "Seldom feel blue.",
+  "Am not interested in abstract ideas.",
+  "Start conversations.",
+  "Am not interested in other people's problems. ",
+  "Get chores done right away",
+  "Am easily disturbed.",
+  "Have excellent ideas.",
+  "Have little to say.",
+  "Have a soft heart.",
+  "Often forget to put things back in their proper place.",
+  "Get upset easily",
+  "Do not have a good imagination.",
+  "Talk to a lot of different people at parties",
+  "Am not really interested in others.",
+  "Like order.",
+  "Change my mood a lot.",
+  "Am quick to understand things",
+  "Don't like to draw attention to myself",
+  "Take time out for others.",
+  "Shirk my duties.",
+  "Have frequent mood swings.",
+  "Use difficult words.",
+  "Don't mind being the center of attention. ",
+  "Feel others' emotions",
+  "Follow a schedule.",
+  "Get irritated easily",
+  "Spend time reflecting on things.",
+  "Am quiet around strangers",
+  "Make people feel at ease.",
+  "Am exacting in my school.",
+  "Often feel blue",
+  "Am full of ideas.",
+
+  // Add more question texts here
+];
+
+
+
+const questionsList = document.getElementById('questions-list'); // Assuming you have an element with this ID
+
+questions.forEach((question, index) => {
+  const questionHtml = `
+    <li class="list-group-item" id="Q${index + 1}">
+      <p>${index + 1}. ${question}</p>
+      <ul type="a" id="q${index + 1}-ol">
+        <li><input class="form-check-input me-1" type="radio"  name="q${index + 1}" value="1"> Disagree</li>
+        <li><input class="form-check-input me-1" type="radio" name="q${index + 1}" value="2">Slightly disagree</li>
+        <li><input class="form-check-input me-1" type="radio" name="q${index + 1}" value="3"> Neutral</li>
+        <li><input class="form-check-input me-1" type="radio" name="q${index + 1}" value="4"> Slightly agree</li>
+        <li><input class="form-check-input me-1" type="radio" name="q${index + 1}" value="5">Agree</li>
+      </ul>
+    </li>
+  `;
+
+  questionsList.insertAdjacentHTML('beforeend', questionHtml);
+});
+
+  $(document).ready(function() {
+  // Calculate the scores when the button is clicked
+  $('button').on('click', function() {
+   
+   
+    // Calculate the scores based on selected radio buttons
+    const scores = {
+  E: 20 -
+    (parseInt($('input[name=q1]:checked').val()) || 0) +
+    (parseInt($('input[name=q11]:checked').val()) || 0) +
+    (parseInt($('input[name=q21]:checked').val()) || 0) -
+    (parseInt($('input[name=q31]:checked').val()) || 0) +
+    (parseInt($('input[name=q41]:checked').val()) || 0) -
+    (parseInt($('input[name=q51]:checked').val()) || 0),
+  A: 14 +
+    (parseInt($('input[name=q2]:checked').val()) || 0) -
+    (parseInt($('input[name=q12]:checked').val()) || 0) +
+    (parseInt($('input[name=q22]:checked').val()) || 0) -
+    (parseInt($('input[name=q32]:checked').val()) || 0) -
+    (parseInt($('input[name=q42]:checked').val()) || 0) +
+    (parseInt($('input[name=q52]:checked').val()) || 0),
+  C: 14 +
+    (parseInt($('input[name=q3]:checked').val()) || 0) -
+    (parseInt($('input[name=q13]:checked').val()) || 0) +
+    (parseInt($('input[name=q23]:checked').val()) || 0) -
+    (parseInt($('input[name=q33]:checked').val()) || 0) +
+    (parseInt($('input[name=q43]:checked').val()) || 0) +
+    (parseInt($('input[name=q53]:checked').val()) || 0),
+  N: 38 -
+    (parseInt($('input[name=q4]:checked').val()) || 0) +
+    (parseInt($('input[name=q14]:checked').val()) || 0) -
+    (parseInt($('input[name=q24]:checked').val()) || 0) +
+    (parseInt($('input[name=q34]:checked').val()) || 0) +
+    (parseInt($('input[name=q44]:checked').val()) || 0) -
+    (parseInt($('input[name=q54]:checked').val()) || 0),
+  O: 8 +
+    (parseInt($('input[name=q5]:checked').val()) || 0) -
+    (parseInt($('input[name=q15]:checked').val()) || 0) +
+    (parseInt($('input[name=q25]:checked').val()) || 0) -
+    (parseInt($('input[name=q35]:checked').val()) || 0) -
+    (parseInt($('input[name=q45]:checked').val()) || 0) +
+    (parseInt($('input[name=q55]:checked').val()) || 0),
+};
+    console.log(scores);
+    
+    // Display the narrative summary
+    if ($('input[type=radio]:checked').length !== 50) {
+      // Display an error message or take appropriate action
+      alert("You have unanswered questions ");
+      console.log('');
+    } else {
+      
+      // Send POST request to save the quiz data
+      $.ajax({
+        type: 'POST',
+        url: '/quiz', // Update the URL based on your route
+        data: {
+          Extroversion: scores.E,
+          Agreeableness: scores.A,
+          Conscientiousness: scores.C,
+          Neuroticism: scores.N,
+          OpennessExperience: scores.O
+        },
+        success: function (response) {
+          console.log(response); // Quiz saved successfully
+        },
+        error: function (error) {
+          console.error(error); // Handle errors
+        }
+      });
+
+      modalContent(scores);
+    }
+   
+  });
+
+
+  function modalContent(scores){
+    const personalityTypes = {
+  E: 'Introvert',
+  I: 'Extrovert',
+  A: 'Agreeable',
+  D: 'Disagreeable',
+  C: 'Conscientious  (honest and diligent)',
+  U: 'Unconscientious (undemanding)',
+  N: 'Emotionally Stable',
+  O: 'Neurotic',
+  O: 'Open to Experience',
+  C: 'Conventional'
+};
+
+const modalBody = $('.modal-body');
+modalBody.empty(); // Clear previous content
+modalBody.append('<h5>Your Personality Traits:</h5>');
+
+Object.keys(scores).forEach(trait => {
+  let personalityType = '';
+
+  // Determine the personality type based on the trait score
+  if (trait === 'E') {
+    personalityType = scores[trait] >= 20 ? 'E' : 'I';
+  } else if (trait === 'A') {
+    personalityType = scores[trait] >= 20 ? 'A' : 'D';
+  } else if (trait === 'C') {
+    personalityType = scores[trait] >= 20 ? 'C' : 'U';
+  } else if (trait === 'N') {
+    personalityType = scores[trait] >= 20 ? 'N' : 'O';
+  } else if (trait === 'O') {
+    personalityType = scores[trait] >= 20 ? 'O' : 'C';
+  }
+
+  // Append the personality type to modal body
+  modalBody.append(`<p>${personalityTypes[personalityType]} : ${scores[trait]}</p>`);
+});
+
+// Trigger the modal to show
+$('#exampleModal').modal('show');
+
+    
+//     const traitNames = {
+//   E: 'Extroversion',
+//   A: 'Agreeableness',
+//   C: 'Conscientiousness',
+//   N: 'Neuroticism',
+//   O: 'Openness to Experience'
+// };
+
+// const modalBody = $('.modal-body');
+// modalBody.empty(); // Clear previous content
+// modalBody.append('<h5>Personality Test Scores:</h5>');
+
+// Object.keys(scores).forEach(trait => {
+//   let traitDescription = '';
+
+//   // Determine the description based on the trait score
+//   if (trait === 'E') {
+//     if (scores[trait] >= 20 && scores[trait] <= 30) {
+//       traitDescription = 'You have moderate extroversion.';
+//     } else if (scores[trait] > 30) {
+//       traitDescription = 'You are highly extroverted.';
+//     } else {
+//       traitDescription = 'You have moderate introversion.';
+//     }
+//   } else if (trait === 'A') {
+//     if (scores[trait] >= 20 && scores[trait] <= 30) {
+//       traitDescription = 'You have moderate agreeableness.';
+//     } else if (scores[trait] > 30) {
+//       traitDescription = 'You are highly agreeable.';
+//     } else {
+//       traitDescription = 'You are less agreeable.';
+//     }
+//   } else if (trait === 'C') {
+//     if (scores[trait] >= 20 && scores[trait] <= 30) {
+//       traitDescription = 'You have moderate conscientiousness.';
+//     } else if (scores[trait] > 30) {
+//       traitDescription = 'You are highly conscientious.';
+//     } else {
+//       traitDescription = 'You are less conscientious.';
+//     }
+//   } else if (trait === 'N') {
+//     if (scores[trait] >= 20 && scores[trait] <= 30) {
+//       traitDescription = 'You have moderate emotional stability.';
+//     } else if (scores[trait] > 30) {
+//       traitDescription = 'You are highly emotionally stable.';
+//     } else {
+//       traitDescription = 'You are emotionally reactive.';
+//     }
+//   } else if (trait === 'O') {
+//     if (scores[trait] >= 20 && scores[trait] <= 30) {
+//       traitDescription = 'You have moderate openness to experience.';
+//     } else if (scores[trait] > 30) {
+//       traitDescription = 'You are highly open to experience.';
+//     } else {
+//       traitDescription = 'You are less open to experience.';
+//     }
+//   }
+
+//   // Append the trait score and description to modal body
+//   modalBody.append(`<p>${traitNames[trait]} : ${scores[trait]}</p>`);
+//   modalBody.append(`<p>${traitDescription}</p>`);
+// });
+
+// // Trigger the modal to show
+// $('#exampleModal').modal('show');
+
+//   }
+  }
+});
+</script>
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>

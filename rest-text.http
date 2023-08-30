@@ -1,0 +1,28 @@
+
+
+post http://localhost:8080/users/signup
+Content-Type: application/json
+
+{
+    "email":"james@gmail.com",
+    "password":"1234567",
+    "course":"Accounting",
+    "year":1,
+    "name":"james",
+    "surname":"doe"
+}
+
+###
+post http://localhost:8080/quiz
+Content-Type: application/json
+Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZWU5ZTU4NWJhNjNjZGVmMmE0YjdjOSIsImlhdCI6MTY5MzM1OTcwNCwiZXhwIjoxNjkzNjE4OTA0fQ.15CjNAUwTDNQ1pQ3FB_TTjn2LwLZmBbl4ASati-lIwU
+
+{
+    "Extroversion":12,
+    "Agreeableness":23,
+    "Conscientiousness":12,
+    "Neuroticism":31,
+    "OpennessExperience":32
+   
+}
+

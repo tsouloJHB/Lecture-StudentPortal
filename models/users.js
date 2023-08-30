@@ -35,45 +35,10 @@ const userSchema = new mongoose.Schema({
         required:[true,"Please select a year of study"],
         max:50
     },
-    personalityQuiz:{
-        type:Boolean,
-        require:true,
-        default:false,
+    quiz:{
+      type:mongoose.Schema.Types.ObjectId,
+      ref:'quiz'
     },
-    personality: [
-        {
-          Extroversion: {
-            type: Number,
-            min: 1,
-            max: 100
-          },
-          Agreeableness: {
-            type: Number,
-            min: 1,
-            max: 100
-          },
-          Conscientiousness: {
-            type: Number,
-            min: 1,
-            max: 100
-          },
-          Neuroticism: {
-            type: Number,
-            min: 1,
-            max: 100
-          },
-          OpennessExperience: {
-            type: Number,
-            min: 1,
-            max: 100
-          }
-        }
-      ],
-      personalityType:{
-        type:String,
-        max:50
-      }, 
- 
     image:{
         data:Buffer,
         contentType:String
