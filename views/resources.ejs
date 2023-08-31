@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <%- include('./partials/header.ejs') %>
 <%- include('./partials/navbar.ejs') %>
-<body>
+<body> 
     <form action="/resources" enctype="multipart/form-data" method="POST">
         <select name="course" class="form-select" aria-label="Default select example">
             <option selected>Course</option>
@@ -17,7 +17,7 @@
           </select>
         
         <label for="formFileMultiple" class="form-label">Multiple files input example</label>
-        <input class="form-control" type="file" id="formFileMultiple" multiple />
+        <input class="form-control" name="documentUpload" type="file" id="formFileMultiple" multiple />
         <button type="submit" class="btn ">Upload document</button>
     </form>    
 

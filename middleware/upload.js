@@ -1,27 +1,28 @@
 const multer = require('multer');
-//post middleware
+
+
+// Configure multer storage and upload settings
 const Storage = multer.diskStorage({
-    destination:"public/documents/",
-    filename : (req,file,cb) =>{
-        cb(null,Date.now()+file.originalname);
-        // cb(null,file.originalname);
+    destination: "public/documents/",
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + file.originalname);
     },
 });
 
 const upload = multer({
-    storage:Storage,
+    storage: Storage,
     limits: {
-        // Set the maximum file size to 5MB
-        fileSize: 5 * 1024 * 1024
+        fileSize: 5 * 1024 * 1024 // 5MB limit
     },
     fileFilter: function (req, file, cb) {
-        if (file.mimetype.startsWith('image/')) {
+        if (file.mimetype === 'application/pdf') {
             cb(null, true);
         } else {
-            cb(new Error('Only images are allowed'));
+            cb(new Error('Only PDF files are allowed'));
         }
-    }  
-}).single('documentUpload')
+    }
+}).single('documentUpload');
+
 
 
 // const upload = multer({

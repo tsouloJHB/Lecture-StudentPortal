@@ -11,13 +11,14 @@ module.exports.uploadDocument = async(req,res)=>{
     const path = '/documents/'+req.file.filename;
     try {
         const resources = new resourcesModel({
+            user:req.user,
             course,
             module,
             path,
             name:req.file.filename
         });
         await resources.save();
-        res.status(200).json(result);
+        res.status(200).json("True");
     } catch (error) {
         console.log(error)
         
