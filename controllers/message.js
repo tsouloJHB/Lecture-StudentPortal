@@ -3,7 +3,7 @@ const MessageModel = require("../models/Message");
 
 module.exports.addMessage = async(req,res) =>{
     const {groupChatId,senderId,text} = req.body;
-
+    console.log(req.body);
     try {
        console.log(groupChatId);
         const groupChatModel = await GroupChatModel.findById(groupChatId);
@@ -22,7 +22,8 @@ module.exports.addMessage = async(req,res) =>{
             const result = await message.save();
             res.status(200).json(result);
         }else{
-            res.status(401).json("project not found");
+            console.log("Group chat not found");
+            res.status(401).json("Group chat not found");
         }
        
     } catch (err) {

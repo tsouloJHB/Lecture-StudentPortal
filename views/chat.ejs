@@ -115,12 +115,12 @@
 
 
                                     <div class="send-box">
-                                        <form action="/message" method="POST">
+                                        <form id="messageForm" action="/message" method="POST">
                                             <input type="text" name="text" class="form-control" aria-label="message…" placeholder="Write message…">
                                             <input type="hidden" name="groupChatId" value="<%=groupChatId%>">
                                             <input type="hidden" name="senderId" value="<%=currentUser._id%>">
-                                            <input type="submit" value="send">
-                                            <button type="button"><i class="fa fa-paper-plane" aria-hidden="true"></i> Send</button>
+                                            <button type="button" id="sendButton"><i class="fa fa-paper-plane" aria-hidden="true"></i> Send</button>
+                                        </form>
                                         </form>
 
                                     </div>
@@ -139,3 +139,28 @@
     <!-- char-area -->
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+     $(document).ready(function() {
+        // Handle form submission
+        $("#sendButton").click(function(e) {
+            e.preventDefault(); // Prevent default form submission
+
+            // Serialize the form data
+            var formData = $("#messageForm").serialize();
+
+            // Send the form data using AJAX
+            $.ajax({
+                type: "POST",
+                url: "/message",
+                data: formData,
+                success: function(response) {
+                    // Refresh the page
+                    location.reload();
+                },
+                error: function(error) {
+                    console.error("Error sending message:", error);
+                }
+            });
+        });
+    });
+</script>
