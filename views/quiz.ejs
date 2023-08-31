@@ -167,7 +167,16 @@ questions.forEach((question, index) => {
       alert("You have unanswered questions ");
       console.log('');
     } else {
-      
+      const extroversionScore = scores['E'];
+      const neuroticismScore = scores['N'];
+      const userPersonalityGroup = calculatePersonalityGroup(
+        extroversionScore,
+        neuroticismScore
+      );
+
+    // Print out the user's personality group and description
+    console.log(`User's Personality Group: ${userPersonalityGroup.group}`);
+   
       // Send POST request to save the quiz data
       $.ajax({
         type: 'POST',
@@ -177,7 +186,8 @@ questions.forEach((question, index) => {
           Agreeableness: scores.A,
           Conscientiousness: scores.C,
           Neuroticism: scores.N,
-          OpennessExperience: scores.O
+          OpennessExperience: scores.O,
+          group:userPersonalityGroup.group
         },
         success: function (response) {
           console.log(response); // Quiz saved successfully
@@ -187,13 +197,13 @@ questions.forEach((question, index) => {
         }
       });
 
-      modalContent(scores);
+      modalContent(scores,userPersonalityGroup.group);
     }
    
   });
 
 
-  function modalContent(scores){
+  function modalContent(scores,group){
     const personalityTypes = {
   E: 'Introvert',
   I: 'Extrovert',
@@ -230,6 +240,7 @@ Object.keys(scores).forEach(trait => {
   // Append the personality type to modal body
   modalBody.append(`<p>${personalityTypes[personalityType]} : ${scores[trait]}</p>`);
 });
+modalBody.append(`<p>Your group: ${group}</p>`);
 
 // Trigger the modal to show
 $('#exampleModal').modal('show');
@@ -303,6 +314,34 @@ $('#exampleModal').modal('show');
 
 //   }
   }
+  const calculatePersonalityGroup = (extroversion, neuroticism) => {
+  // ... Same personalityGroups array and function as before ...
+  const personalityGroups = [
+  { name: 'Introvert-Stable', extroversionRange: [0, 40], neuroticismRange: [0, 40] },
+  { name: 'Introvert-Unstable', extroversionRange: [0, 40], neuroticismRange: [40, 100] },
+  { name: 'Extrovert-Stable', extroversionRange: [60, 100], neuroticismRange: [0, 40] },
+  { name: 'Extrovert-Unstable', extroversionRange: [60, 100], neuroticismRange: [40, 100] },
+];
+
+  for (const group of personalityGroups) {
+    const isWithinRange = (value, range) => value >= range[0] && value <= range[1];
+    const traitsWithinRange = isWithinRange(extroversion, group.extroversionRange) &&
+                              isWithinRange(neuroticism, group.neuroticismRange);
+
+    if (traitsWithinRange) {
+      return {
+        group: group.name,
+    
+      };
+    }
+  }
+
+  return {
+    group: 'Default Group',
+  
+  };
+};
+
 });
 </script>
   

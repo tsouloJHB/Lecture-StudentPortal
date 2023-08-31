@@ -15,14 +15,15 @@ Content-Type: application/json
 ###
 post http://localhost:8080/quiz
 Content-Type: application/json
-Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZWU5ZTU4NWJhNjNjZGVmMmE0YjdjOSIsImlhdCI6MTY5MzM1OTcwNCwiZXhwIjoxNjkzNjE4OTA0fQ.15CjNAUwTDNQ1pQ3FB_TTjn2LwLZmBbl4ASati-lIwU
+Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZWZjOWMwYjc3NDhkZTYzZmJkNDU2MiIsImlhdCI6MTY5MzQzNjM1MiwiZXhwIjoxNjkzNjk1NTUyfQ.rUUjmsVLN0fi2lgDPo4Kjlp7UUcdf6PYDqtHVB94qMs
 
 {
     "Extroversion":12,
     "Agreeableness":23,
     "Conscientiousness":12,
     "Neuroticism":31,
-    "OpennessExperience":32
+    "OpennessExperience":32,
+    "group":"Introvert-Stable"
    
 }
 

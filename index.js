@@ -7,7 +7,8 @@ const connectDb = require('./db');
 const UserRoute = require("./router/users");
 const QuizRoute = require("./router/quiz");
 const PortalRoute = require("./router/portal");
-
+const GroupChatRoute = require("./router/groupChat");
+const MessageRoute = require("./router/message");
 dotenv.config();
 connectDb();
 const bodyParser = require('body-parser');
@@ -28,6 +29,8 @@ app.use(cookieParser());
 app.use('/users', UserRoute);
 app.use('/quiz', QuizRoute);
 app.use('/portal', PortalRoute);
+app.use('/groupChat', GroupChatRoute);
+app.use('/message', MessageRoute);
 
 app.get('/', async(req, res) => {
    

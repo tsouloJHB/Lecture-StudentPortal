@@ -31,13 +31,17 @@ const userSchema = new mongoose.Schema({
         max:50
     },
     year:{
-        type:String,
+        type:Number,
         required:[true,"Please select a year of study"],
         max:50
     },
     quiz:{
       type:mongoose.Schema.Types.ObjectId,
       ref:'quiz'
+    },
+    groupChat:{
+      type:mongoose.Schema.Types.ObjectId,
+      ref:'groupChat'
     },
     image:{
         data:Buffer,
@@ -46,6 +50,10 @@ const userSchema = new mongoose.Schema({
     online:{
         type:Boolean,
         default:false,
+    },
+    lecture:{
+      type:Boolean,
+      default:false,
     },
    
     isAdmin: {

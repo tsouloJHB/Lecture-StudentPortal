@@ -1,15 +1,15 @@
-
-
+const GroupChatController = require("./groupChat");
+const Quiz = require('../models/quiz'); // Import the quiz model
 
 module.exports.quiz = async (req, res) => {
     res.render('quiz');
 }
 
 
-const Quiz = require('../models/quiz'); // Import the quiz model
+
 
 module.exports.saveQuiz = async (req, res) => {
-  const { Extroversion, Agreeableness, Conscientiousness, Neuroticism, OpennessExperience } = req.body;
+  const { Extroversion, Agreeableness, Conscientiousness, Neuroticism, OpennessExperience,group } = req.body;
   const user = req.user; // Assuming you have the authenticated user's data in req.user
 
   try {
@@ -31,9 +31,18 @@ module.exports.saveQuiz = async (req, res) => {
       // Update the user's quiz field with the newly created quiz ID
       user.quiz = newQuiz._id;
       await user.save();
+    
+    //check if user already has already a group
+    if(!user.groupChat){
+       //find group chat that match the received group
+      await GroupChatController.insertUserToGroupChat(user,group);
+    }
 
+   
+    
     res.status(201).json("Quiz saved");
   } catch (error) {
+    console.log(error);
     res.status(500).json({ error: "An error occurred while saving the quiz data." });
   }
 };

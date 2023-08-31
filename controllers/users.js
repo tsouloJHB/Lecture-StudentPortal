@@ -67,11 +67,24 @@ module.exports.signUp = async (req, res) => {
             maxAge: maxAge, // 5 days in milliseconds
         });
         // res.redirect('/quiz/q');
-       res.status(201).json("Data found");
+       res.status(201).json("User saved");
     } catch (error) {
         console.log(error);
         const errors = handleErrors(error);
         res.status(400).json( errors );
     }    
   
+};
+
+module.exports.getUsers = async (usersIds) => {
+    try {
+       
+        const users = await UserModel.find({
+            _id: { $in: usersIds }
+        });
+      
+        return users;
+    } catch (error) {
+        throw error;
+    }
 };
