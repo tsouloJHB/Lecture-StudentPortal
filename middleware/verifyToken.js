@@ -20,6 +20,7 @@ async function verifyToken(req, res, next) {
         res.clearCookie('token');
         return res.redirect('/users/login');
       }
+      res.locals.user = req.user;
       // Check if token has expired
       const nowInSeconds = Math.floor(Date.now() / 1000);
       if (decoded.exp < nowInSeconds) {
