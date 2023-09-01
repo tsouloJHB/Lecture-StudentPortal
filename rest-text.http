@@ -27,3 +27,16 @@ Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZWZjOWMwYjc3NDhkZ
    
 }
 
+###
+post http://localhost:8080/message
+Content-Type: application/json
+Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZWZjOWMwYjc3NDhkZTYzZmJkNDU2MiIsImlhdCI6MTY5MzQzNjM1MiwiZXhwIjoxNjkzNjk1NTUyfQ.rUUjmsVLN0fi2lgDPo4Kjlp7UUcdf6PYDqtHVB94qMs
+
+{
+    "groupChatId":"64efd2cbe0a02e58c0a6562e",
+    "senderId":"64efc9c0b7748de63fbd4562",
+    "text":"Introvert-Stable"
+   
+}
+
+
