@@ -1,28 +1,115 @@
 <!DOCTYPE html>
 <%- include('./partials/header.ejs') %>
 <%- include('./partials/navbar.ejs') %>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.10.111/web/pdf_viewer.min.css">
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 <body> 
-    <form action="/resources" enctype="multipart/form-data" method="POST">
-        <select name="course" class="form-select" aria-label="Default select example">
-            <option selected>Course</option>
-            <option value="1">Computer science</option>
-            <option value="2">Law</option>
-            <option value="3">Accounting</option>
-          </select>
-          <select name="module" class="form-select" aria-label="Default select example">
-            <option selected>Module</option>
-            <option value="1">Computer theory</option>
-            <option value="2">Commercial law</option>
-            <option value="3">Accounting 101</option>
-          </select>
-        
-        <label for="formFileMultiple" class="form-label">Multiple files input example</label>
-        <input class="form-control" name="documentUpload" type="file" id="formFileMultiple" multiple />
-        <button type="submit" class="btn ">Upload document</button>
-    </form>    
-
+  <div class="container">
+    <div>
+   
+      <p>Course: <%=user.course%></p>
+    </div>
+    <table class="table">
+      <thead>
+          <tr>
+              <th scope="col"> </th>
+              <th scope="col">Module</th>
+              <th scope="col">Name</th>
+              <th scope="col">Date</th>
+              <th scope="col">Download</th>
+              <th scope="col">Preview</th>
+          </tr>
+      </thead>
+      <tbody>
+        <% function formatTime(timestamp) { %>
+          <% const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']; %>
+          <% const date = new Date(timestamp); %>
+          <% const day = date.getUTCDate(); %>
+          <% const month = months[date.getUTCMonth()]; %>
+          <% const year = date.getUTCFullYear().toString().slice(-2); %>
+          <% return `${day}/${month}/${year}`; %>
+      <% } %>
+        <% documents.forEach((document, index) => { %>
+            <tr>
+                <th scope="row"><%= index + 1 %></th>
+                <td><%= document.module %></td>
+                <td><%= document.name %></td>
+                <td><%= formatTime(document.createdAt) %></td>
+                <td><a href="<%= document.path %>" download>Download</a></td>
+                <td>
+                  <a href="<%= document.path %>" target="_blank" class="preview-button">Preview</a>
+                </td>
+                    <div class="pdf-preview"></div>
+                </td>
+            </tr>
+        <% }); %>
+    </tbody>
+  </table>
+        <% if(user.lecture){%>
+        <form action="/resources" enctype="multipart/form-data" method="POST">
+            <select name="course" class="form-select" aria-label="Default select example">
+                <option selected>Course</option>
+                <option value="Computer science">Computer science</option>
+                <option value="Law">Law</option>
+                <option value="Accounting">Accounting</option>
+              </select>
+              <select name="module" class="form-select" aria-label="Default select example">
+                <option selected>Module</option>
+                <option value="Computer theory">Computer theory</option>
+                <option value="Commercial law">Commercial law</option>
+                <option value="Accounting 101">Accounting 101</option>
+              </select>
+              <select name="year" class="form-select" aria-label="Default select example">
+                <option selected>Year</option>
+                <option value="1">1st</option>
+                <option value="2">2st</option>
+                <option value="3">3rd</option>
+              </select>
+            
+            <label for="formFileMultiple" class="form-label">Multiple files input example</label>
+            <input class="form-control" name="documentUpload" type="file" id="formFileMultiple" multiple />
+            <button type="submit" class="btn ">Upload document</button>
+        </form>
+        <%}%>  
+  </div>
 </body>
- 
+<script>
+  const previewButtons = document.querySelectorAll('.preview-button');
+
+async function renderPDFPreview(url,container) {
+    // Your PDF.js code to render the PDF preview...
+    const loadingTask = pdfjsLib.getDocument(url);
+    const pdfDocument = await loadingTask.promise;
+
+    for (let pageNum = 1; pageNum <= pdfDocument.numPages; pageNum++) {
+        const page = await pdfDocument.getPage(pageNum);
+        const viewport = page.getViewport({ scale: 1.0 });
+
+        const canvas = document.createElement('canvas');
+        const context = canvas.getContext('2d');
+        canvas.height = viewport.height;
+        canvas.width = viewport.width;
+        container.appendChild(canvas);
+
+        const renderContext = {
+            canvasContext: context,
+            viewport: viewport,
+        };
+        await page.render(renderContext).promise;
+    }
+}
+
+previewButtons.forEach(button => {
+    button.addEventListener('click', function(event) {
+        const pdfUrl = this.getAttribute('data-pdf-url');
+        const previewContainer = this.nextElementSibling.querySelector('.pdf-preview');
+        renderPDFPreview(pdfUrl, previewContainer);
+    });
+});
+
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.10.111/build/pdf.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
 

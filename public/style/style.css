@@ -1,6 +1,6 @@
 
 html {
-  color: #eee;
+  color: #090909;
   padding: 0;
   margin: 0;
 }
@@ -49,6 +49,9 @@ section {
 }
 
 #SignIn:checked ~ section #SignInFormData {
+  display: flex;
+}
+#SignUplec:checked ~ section #SignUplecFormData{
   display: flex;
 }
 
@@ -121,8 +124,8 @@ section {
   
 .container{
   margin-top: 50px;
-  background-color: #555;
-  color: #ddd;
+  /* background-color: #555; */
+ 
   border-radius: 10px;
   padding: 20px;
   font-family: 'Montserrat', sans-serif;

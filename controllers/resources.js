@@ -2,12 +2,15 @@
 const resourcesModel = require("../models/resources");
 
 module.exports.resources = async (req, res) => {
-    res.render('resources');
+    const documents = await this.getDocuments(req.user);
+    console.log(req.user)
+    console.log(documents);
+    res.render('resources',{documents,user:req.user});
 }
 
 module.exports.uploadDocument = async(req,res)=>{
     // courseImage:'/images/courseimages/'+req.file.filename,
-    const {module,course} = req.body;
+    const {module,course,year} = req.body;
     const path = '/documents/'+req.file.filename;
     try {
         const resources = new resourcesModel({
@@ -15,7 +18,8 @@ module.exports.uploadDocument = async(req,res)=>{
             course,
             module,
             path,
-            name:req.file.filename
+            name:req.file.filename,
+            year
         });
         await resources.save();
         res.status(200).json("True");
@@ -23,4 +27,20 @@ module.exports.uploadDocument = async(req,res)=>{
         console.log(error)
         
     }
+}
+
+module.exports.getDocuments = async(user)=>{
+    //get documents for course and year from user info
+    try {
+        const documents  = await resourcesModel.find({
+            course:user.course,
+            year:user.year
+        });
+        return documents
+    } catch (error) {
+     
+        console.log(error);
+        return [];
+    }
+
 }

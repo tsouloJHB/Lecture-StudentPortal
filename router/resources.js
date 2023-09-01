@@ -4,7 +4,7 @@ const resourcesController = require('../controllers/resources');
 const {verifyToken} = require("../middleware/verifyToken");
 const {upload} = require("../middleware/upload");
 
-router.get('/',resourcesController.resources);
+router.get('/',verifyToken,resourcesController.resources);
 router.post('/',verifyToken,upload,resourcesController.uploadDocument);
 
 module.exports = router

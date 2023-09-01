@@ -23,6 +23,7 @@ https://cdn.jsdelivr.net/npm/gotham-fonts@1.0.3/css/gotham-rounded.min.css
 <body class="login-body">
 <input type="radio" name="optionScreen" id="SignIn" hidden checked>
 <input type="radio" name="optionScreen" id="SignUp" hidden>
+<input type="radio" name="optionScreen" id="SignUplec" hidden>
 
 <section class="login">
   <div id="logo">
@@ -33,9 +34,10 @@ https://cdn.jsdelivr.net/npm/gotham-fonts@1.0.3/css/gotham-rounded.min.css
   <nav>
     <label for="SignIn">Sign In</label>
     <label for="SignUp">Sign Up</label>
+    <label for="SignUplec">Sign Uplec</label>
   </nav>
 
-  <form action="" id="SignInFormData">
+  <form action="/users/login" method="POST" id="SignInFormData">
     <input type="text" id="username" placeholder="Username">
     <input type="password" id="password" placeholder="Password">
     <span>
@@ -45,6 +47,20 @@ https://cdn.jsdelivr.net/npm/gotham-fonts@1.0.3/css/gotham-rounded.min.css
     <button type="button" title="Sing In">Sign In</button>
 
     <a id="forgotPassword">forgot Password?</a>
+  </form>
+  
+  <form action="" id="SignUplecFormData">
+    <input type="text" id="name-lec" placeholder="Name Complete">
+    <input type="text" id="surname-lec" placeholder="Surname Complete">
+  
+    <input type="email" id="email-lec" placeholder="E-mail">
+    <input type="password" id="new-password-lec" placeholder="New Password">
+    <span>
+      <input type="checkbox" id="staySingedUp-lec">
+      <label for="staySingedUp">stay Signed In</label>
+    </span>
+    <button type="button" title="Sing Up">Sign Up</button>
+    <div id="errorDiv"></div>
   </form>
 
   <form action="" id="SignUpFormData">
@@ -87,6 +103,7 @@ https://cdn.jsdelivr.net/npm/gotham-fonts@1.0.3/css/gotham-rounded.min.css
       const course = $('#course').val();
       const surname = $('#surname').val();
       const password = $('#new-password').val();
+      const lecture = false;
   
       // Prepare data for POST request
       const data = {
@@ -95,7 +112,8 @@ https://cdn.jsdelivr.net/npm/gotham-fonts@1.0.3/css/gotham-rounded.min.css
         password: password,
         course:course,
         surname:surname,
-        year:year
+        year:year,
+        lecture:lecture
       };
   
       try {
@@ -113,6 +131,58 @@ https://cdn.jsdelivr.net/npm/gotham-fonts@1.0.3/css/gotham-rounded.min.css
           // Successful signup
           console.log('Signup successful');
           window.location.href = '/quiz';
+        } else {
+          // Display error response
+          console.log('Signup error:', responseData);
+          responseData.forEach(error => {
+            $('#errorDiv').append(`<p>${error.msg}</p>`);
+          });
+          // You can use this error to update the UI to show the error to the user
+          // For example, create a div with an id "errorDiv" and update its text content
+          //
+        }
+      } catch (error) {
+        console.error('An error occurred:', error);
+      }
+    });
+
+    //sign up lecture
+
+    $('#SignUplecFormData button').on('click', async function() {
+      const name = $('#name-lec').val();
+      const email = $('#email-lec').val();
+      const year = "1";
+      const course = "lecture";
+      const surname = $('#surname-lec').val();
+      const password = $('#new-password-lec').val();
+      const lecture = true;
+  
+      // Prepare data for POST request
+      const data = {
+        name: name,
+        email: email,
+        password: password,
+        course:course,
+        surname:surname,
+        year:year,
+        lecture:lecture
+      };
+  
+      try {
+        const response = await fetch('/users/signup', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        });
+  
+        const responseData = await response.json();
+  
+        if (response.ok) {
+          // Successful signup
+          console.log('Signup successful');
+          window.location.href = '/resources';
         } else {
           // Display error response
           console.log('Signup error:', responseData);

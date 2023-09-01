@@ -55,10 +55,10 @@ const handleErrors = (err) =>{
 }   
 
 module.exports.signUp = async (req, res) => {
-    const { email, password, name, surname,confirmpassword,course,year } = req.body;
+    const { email, password, name, surname,confirmpassword,course,year,lecture } = req.body;
     try {
         console.log(req.body);
-        const newUser = new UserModel({ email, password, name, surname,course,year });
+        const newUser = new UserModel({ email, password, name, surname,course,year,lecture });
         const user = await newUser.save();
         console.log(user);
         const token = utils.generateAuthToken(user._id);
@@ -75,6 +75,10 @@ module.exports.signUp = async (req, res) => {
     }    
   
 };
+
+module.exports.login = async (req, res) => {
+
+}
 
 module.exports.getUsers = async (usersIds) => {
     try {

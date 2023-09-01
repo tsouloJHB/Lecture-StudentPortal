@@ -24,7 +24,10 @@ const ResourcesSchema = new mongoose.Schema(
         type: String,
         max: 50,
       },
-   
+      year:{
+        type:Number,
+        max:50
+    },
     },
     { timestamps: true }
   );
