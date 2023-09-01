@@ -38,16 +38,15 @@ https://cdn.jsdelivr.net/npm/gotham-fonts@1.0.3/css/gotham-rounded.min.css
   </nav>
 
   <form action="/users/login" method="POST" id="SignInFormData">
-    <input type="text" id="username" placeholder="Username">
-    <input type="password" id="password" placeholder="Password">
+    <input type="text" id="email-login" name="email" placeholder="Email">
+    <input type="password" id="password-login" name="password" placeholder="Password">
     <span>
-      <input type="checkbox" id="staySingedIn" checked>
-      <label for="staySingedIn">stay Signed In</label>
+        <input type="checkbox" id="staySignedIn" checked>
+        <label for="staySignedIn">Stay Signed In</label>
     </span>
-    <button type="button" title="Sing In">Sign In</button>
-
-    <a id="forgotPassword">forgot Password?</a>
-  </form>
+    <button type="button" title="Sign In" onclick="login()">Sign In</button>
+    <a id="forgotPassword">Forgot Password?</a>
+</form>
   
   <form action="" id="SignUplecFormData">
     <input type="text" id="name-lec" placeholder="Name Complete">
@@ -198,6 +197,32 @@ https://cdn.jsdelivr.net/npm/gotham-fonts@1.0.3/css/gotham-rounded.min.css
       }
     });
   });
+  async function login() {
+            const email = document.getElementById('email-login').value;
+            const password = document.getElementById('password-login').value;
+            
+            const response = await fetch('/users/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, password }),
+            });
+
+            const data = await response.json();
+
+            if (response.status === 200) {
+                // Successful login, redirect based on the JSON response
+                if (data === "resources") {
+                    window.location.href = '/resources'; // Change to your desired resource URL
+                } else if (data === "groupChat") {
+                    window.location.href = '/groupChat'; // Change to your desired groupChat URL
+                }
+            } else {
+                // Handle login failure, e.g., display an error message
+                console.log('Login failed:', data);
+            }
+        }
   </script>
 
   </html>

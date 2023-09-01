@@ -64,10 +64,15 @@ module.exports.signUp = async (req, res) => {
         const token = utils.generateAuthToken(user._id);
         res.cookie('token', token, {
             httpOnly: true,
-            maxAge: maxAge, // 5 days in milliseconds
+            maxAge: maxAge, 
         });
+         if (user.lecture) {  
+            res.redirect('/resources');
+        } else {
+            res.redirect('/groupChat');
+        }
         // res.redirect('/quiz/q');
-       res.status(201).json("User saved");
+     
     } catch (error) {
         console.log(error);
         const errors = handleErrors(error);
@@ -78,6 +83,25 @@ module.exports.signUp = async (req, res) => {
 
 module.exports.login = async (req, res) => {
 
+    const { email, password } = req.body;
+    if(email === "" || email === null && password === "" || password === null){
+        return res.status(401).json("Empty fields");
+    }
+    try{
+         const user = await UserModel.login(email, password);
+          const token = utils.generateAuthToken(user._id);
+          res.cookie('token', token, {
+            httpOnly: true,
+            maxAge: maxAge, // 5 days in milliseconds
+            });
+            if(user.lecture){
+                return res.status(200).json("resources");
+            }
+            res.status(200).json("groupChat");
+    }catch(error){
+        console.log(error);
+        res.status(401).json("An error occurred");
+    }
 }
 
 module.exports.getUsers = async (usersIds) => {
@@ -92,3 +116,17 @@ module.exports.getUsers = async (usersIds) => {
         throw error;
     }
 };
+
+module.exports.renderLogin = async (errors) =>{
+    res.render('login',{errors});
+}
+
+module.exports.signOut = async(req,res) =>{
+    res.clearCookie('token');
+  
+    res.redirect('/');
+}
+
+   
+   
+
