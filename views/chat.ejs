@@ -11,8 +11,12 @@
 
 
     <!-- char-area -->
+    
     <section class="message-area">
         <div class="container">
+            <button id="myButton">Click Me</button>
+            <div id="chat" data-user="<%= JSON.stringify(user) %>"></div>
+
             <div class="row">
                 <div class="col-12">
                     <div class="chat-area">
@@ -137,7 +141,8 @@
         </div>
     </section>
     <!-- char-area -->
-
+<!-- <script src="/script/index.js"></script> -->
+<script src="/dist/bundle.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
      $(document).ready(function() {
