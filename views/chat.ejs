@@ -120,7 +120,7 @@
 
                                     <div class="send-box">
                                         <form id="messageForm" action="/message" method="POST">
-                                            <input type="text" name="text" class="form-control" aria-label="message…" placeholder="Write message…">
+                                            <input type="text" name="text" id="messageInput" class="form-control" aria-label="message…" placeholder="Write message…">
                                             <input type="hidden" name="groupChatId" value="<%=groupChatId%>">
                                             <input type="hidden" name="senderId" value="<%=currentUser._id%>">
                                             <button type="button" id="sendButton"><i class="fa fa-paper-plane" aria-hidden="true"></i> Send</button>
@@ -145,22 +145,29 @@
 <script src="/dist/bundle.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-     $(document).ready(function() {
+  
+    $(document).ready(function() {
         // Handle form submission
-        $("#sendButton").click(function(e) {
+        $("#sendButton").click(async function(e) { // Make the function async
             e.preventDefault(); // Prevent default form submission
 
             // Serialize the form data
             var formData = $("#messageForm").serialize();
-
+            // Get the text message from the input field
+            var messageText = $("#messageInput").val();
             // Send the form data using AJAX
             $.ajax({
                 type: "POST",
                 url: "/message",
                 data: formData,
-                success: function(response) {
+                success: async function(response) { // Make the success function async
                     // Refresh the page
-                    location.reload();
+                    // location.reload();
+
+                    // Call socketSendMessage with await
+                     socketSendMessage(messageText);
+                     displayMessage(messageText,true);
+                     $("#messageInput").val("");
                 },
                 error: function(error) {
                     console.error("Error sending message:", error);
