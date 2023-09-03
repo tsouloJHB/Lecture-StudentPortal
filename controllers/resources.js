@@ -1,4 +1,5 @@
 
+const { text } = require("express");
 const resourcesModel = require("../models/resources");
 const fs = require('fs');
 const pdf = require('pdf-parse');
@@ -132,6 +133,7 @@ async function searchPdf(searchTerm,pdfPath) {
       if (!searchText) {
         return res.status(400).json({ message: 'Search term is required.' });
       }
+   
       const path = "public"+resource.path;
       // Call the searchPdf function to perform the search
       const matchingParagraphs = await searchPdf(searchText,path);
