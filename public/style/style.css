@@ -1,6 +1,6 @@
 
 html {
-  color: #090909;
+  
   padding: 0;
   margin: 0;
 }
@@ -20,57 +20,103 @@ html {
   place-content: center;
   background: #eee;
 }
+.navbar-light .navbar-nav .nav-link {
+  color: black !important;
+}
+
+.navbar-nav {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-right: 150px;
+}
+.navbar-light .navbar-nav .sign-out-button{
+  color: white !important;
+}
+.navbar-nav .sign-out-button {
+  background-color: blue; /* Set the background color to blue */
+  color: white !important; /* Set the text color to white */
+  padding: 5px 10px; /* Add padding for better button appearance */
+  border-radius: 5px; /* Add rounded corners to the button */
+  text-decoration: none; /* Remove underlines from the link */
+  transition: background-color 0.3s; /* Add a smooth background color transition */
+}
+
+/* Hover effect */
+.sign-out-button:hover {
+  background-color: darkblue; /* Change the background color on hover */
+}
 
 section {
   min-width: 450px;
   min-height: 520px;
+  max-height: 800px;
   padding: 15px;
    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border-radius: 10px;
   background: #2c2d31;
+  color: #ffffff; 
 }
 
 #logo {
   justify-content: center;
   display: flex;
-  align-items: center;
+  align-items: center;  
   margin: 30px;
+  color: #fff;
+
 }
-
-
-
-
-
+.login nav  {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.login nav label{
+  margin-left: 20px;
+}
 
 .login form {
   padding-inline: 60px;
   display: none;
   flex-direction: column;
+  color: #ffffff;
 }
-
+section nav label:hover{
+  cursor: pointer;
+}
 #SignIn:checked ~ section #SignInFormData {
   display: flex;
+  
 }
 #SignUplec:checked ~ section #SignUplecFormData{
   display: flex;
+  
 }
 
 #SignIn:checked ~ section nav label:first-child {
   margin-bottom: -2px;
   border-bottom: 2px solid #1ed760;
+  color: #ffffff;
+  
 }
 
 #SignUp:checked ~ section #SignUpFormData {
   display: flex;
 }
 
-#SignUp:checked ~ section nav label:last-child {
+#SignUp:checked ~ section nav label:nth-child(2) {
   margin-bottom: -2px;
   border-bottom: 2px solid #1ed760;
 }
 
+#SignUplec:checked ~ section nav label:last-child {
+  margin-bottom: -2px;
+  border-bottom: 2px solid #1ed760;
+  color: #ffffff;
+  
+}
+
 .login input,
-.login button {
+.login button, .login select {
   border-radius: 50px;
   padding: 15px 20px;
   margin-bottom: 15px;
@@ -104,7 +150,7 @@ section {
 }
 
 .login a {
-  color: #797a7e;
+  color: #b9bbc2;
   font-weight: bold;
   text-decoration: none;
   margin-top: 30px;
@@ -114,12 +160,29 @@ section {
 }
 
 .list-group-item{
-  background-color: #555 !important;
-  border-color: #636262 !important;
+  background-color: #f9f9f9 !important;
+  border-color: #b7b1b1 !important;
   padding-left: 40px !important;
 }
 .list-group-item p{
   font-weight: 600;
+}
+.spaced-list .list-inline-item {
+  
+  margin-right: 60px !important; /* Adjust the margin to increase or decrease spacing */
+}
+.custom-radio .form-check-input[type="radio"] {
+  width: 1.5em; /* Adjust the width as needed */
+  height: 1.5em; /* Adjust the height as needed */
+  position: relative;
+  bottom: -5px;
+  right: 5px;
+}
+
+#quiz h1{
+  text-align: center;
+  font-size: 33px;
+  color: #6a6b6b;
 }
   
 .container{

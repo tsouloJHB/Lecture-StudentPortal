@@ -1,5 +1,47 @@
 <!DOCTYPE html>
 <%- include('./partials/header.ejs') %>
 <%- include('./partials/navbar.ejs') %>
-<h1>Portal</h1>
+<body>
+<!-- Sidebar Content -->
+ <!-- Main Content -->
+ <div class="container mt-5">
+    <!-- Dashboard Content -->
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Welcome, <%=user.name%> <%=user.surname%>!</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    My Courses
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li>Mathematics - MATH101</li>
+                        <li>Computer Science - CS101</li>
+                        <li>History - HIST201</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    Upcoming Assignments
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li>Math Homework - Due on 10/15/2023</li>
+                        <li>Computer Science Project - Due on 10/20/2023</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Bootstrap JS and your custom scripts here -->
+
+</body>
+
 </html>

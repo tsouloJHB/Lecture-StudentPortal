@@ -5,7 +5,7 @@ module.exports.resources = async (req, res) => {
     const documents = await this.getDocuments(req.user);
     console.log(req.user)
     console.log(documents);
-    res.render('resources',{documents,user:req.user});
+    return res.render('resources',{documents,user:req.user});
 }
 
 module.exports.uploadDocument = async(req,res)=>{
@@ -22,7 +22,7 @@ module.exports.uploadDocument = async(req,res)=>{
             year
         });
         await resources.save();
-        res.status(200).json("True");
+        return this.resources(req,res);
     } catch (error) {
         console.log(error)
         

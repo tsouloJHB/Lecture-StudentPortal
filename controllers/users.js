@@ -67,9 +67,9 @@ module.exports.signUp = async (req, res) => {
             maxAge: maxAge, 
         });
          if (user.lecture) {  
-            res.redirect('/resources');
+            res.status(201).json("resources")
         } else {
-            res.redirect('/groupChat');
+            res.status(201).json("quiz")
         }
         // res.redirect('/quiz/q');
      

@@ -5,16 +5,16 @@
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 <style>
   body{
-  background-color: #333;
+  background-color: #ffffff;
 }
 </style>
 <div class="container">
   <div id="quiz" class="p-2">
-     <h1>QuizApp</h1>
+     <h1>Big 5 Quiz</h1>
      <ol id="questions-list" class="list-group list-group-numbered">
        
      </ol>
-     <button style="color: white;border-color:#fff;" class="btn btn-outline-primary mt-3">Check Your Answers</button>
+     <button style="color: white;border-color:#fff;background-color: red;" class="btn btn-outline-primary mt-3">Submit Quiz</button>
   </div>
 
 </div>
@@ -103,12 +103,12 @@ questions.forEach((question, index) => {
   const questionHtml = `
     <li class="list-group-item" id="Q${index + 1}">
       <p>${index + 1}. ${question}</p>
-      <ul type="a" id="q${index + 1}-ol">
-        <li><input class="form-check-input me-1" type="radio"  name="q${index + 1}" value="1"> Disagree</li>
-        <li><input class="form-check-input me-1" type="radio" name="q${index + 1}" value="2">Slightly disagree</li>
-        <li><input class="form-check-input me-1" type="radio" name="q${index + 1}" value="3"> Neutral</li>
-        <li><input class="form-check-input me-1" type="radio" name="q${index + 1}" value="4"> Slightly agree</li>
-        <li><input class="form-check-input me-1" type="radio" name="q${index + 1}" value="5">Agree</li>
+      <ul class="list-inline-item spaced-list custom-radio" type="a" id="q${index + 1}-ol">
+        <li class="list-inline-item " ><input class="form-check-input form-check-lg me-1" type="radio"  name="q${index + 1}" value="1"> Disagree</li>
+        <li class="list-inline-item" ><input class="form-check-input form-check-lg me-1" type="radio" name="q${index + 1}" value="2">Slightly disagree</li>
+        <li class="list-inline-item" ><input class="form-check-input form-check-lg me-1" type="radio" name="q${index + 1}" value="3"> Neutral</li>
+        <li class="list-inline-item" ><input class="form-check-input form-check-lg me-1" type="radio" name="q${index + 1}" value="4"> Slightly agree</li>
+        <li class="list-inline-item" ><input class="form-check-input  me-1" type="radio" name="q${index + 1}" value="5">Agree</li>
       </ul>
     </li>
   `;

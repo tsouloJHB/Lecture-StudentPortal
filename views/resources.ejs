@@ -9,6 +9,8 @@
    
       <p>Course: <%=user.course%></p>
     </div>
+  
+
     <table class="table">
       <thead>
           <tr>
@@ -52,30 +54,30 @@
     </tbody>
   </table>
         <% if(user.lecture){%>
-        <form action="/resources" enctype="multipart/form-data" method="POST">
-            <select name="course" class="form-select" aria-label="Default select example">
-                <option selected>Course</option>
-                <option value="Computer science">Computer science</option>
-                <option value="Law">Law</option>
-                <option value="Accounting">Accounting</option>
-              </select>
-              <select name="module" class="form-select" aria-label="Default select example">
-                <option selected>Module</option>
-                <option value="Computer theory">Computer theory</option>
-                <option value="Commercial law">Commercial law</option>
-                <option value="Accounting 101">Accounting 101</option>
-              </select>
-              <select name="year" class="form-select" aria-label="Default select example">
-                <option selected>Year</option>
-                <option value="1">1st</option>
-                <option value="2">2st</option>
-                <option value="3">3rd</option>
-              </select>
-            
-            <label for="formFileMultiple" class="form-label">Multiple files input example</label>
-            <input class="form-control" name="documentUpload" type="file" id="formFileMultiple" multiple />
-            <button type="submit" class="btn ">Upload document</button>
-        </form>
+          <form action="/resources" enctype="multipart/form-data" method="POST">
+              <select name="course" class="form-select" aria-label="Default select example">
+                  <option selected>Course</option>
+                  <option value="Computer science">Computer science</option>
+                  <option value="Law">Law</option>
+                  <option value="Accounting">Accounting</option>
+                </select>
+                <select name="module" class="form-select" aria-label="Default select example">
+                  <option selected>Module</option>
+                  <option value="Computer theory">Computer theory</option>
+                  <option value="Commercial law">Commercial law</option>
+                  <option value="Accounting 101">Accounting 101</option>
+                </select>
+                <select name="year" class="form-select" aria-label="Default select example">
+                  <option selected>Year</option>
+                  <option value="1">1st</option>
+                  <option value="2">2st</option>
+                  <option value="3">3rd</option>
+                </select>
+              
+              
+              <input class="form-control" class="form-control" name="documentUpload" type="file" id="formFileMultiple" multiple />
+              <button type="submit " style="background-color: blueviolet;color: white;" class="btn ">Upload document</button>
+          </form>
         <%}%>  
   </div>
 </body>
