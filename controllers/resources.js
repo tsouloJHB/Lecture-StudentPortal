@@ -1,5 +1,7 @@
 
 const resourcesModel = require("../models/resources");
+const fs = require('fs');
+const pdf = require('pdf-parse');
 
 module.exports.resources = async (req, res) => {
     const documents = await this.getDocuments(req.user);
@@ -79,3 +81,68 @@ module.exports.deleteDocument = async (req, res) => {
     }
 };
 
+
+// Function to search for text in the PDF
+async function searchPdf(searchTerm,pdfPath) {
+    try {
+      // Read the PDF file
+      const dataBuffer = fs.readFileSync(pdfPath);
+  
+      // Convert the PDF to text
+      const data = await pdf(dataBuffer);
+  
+      // Extracted text from the PDF
+      const pdfText = data.text;
+  
+      // Split the PDF text into paragraphs based on empty lines
+      const paragraphs = pdfText.split(/\n\s*\n/);
+  
+      // Initialize an array to store matching paragraphs
+      const matchingParagraphs = [];
+  
+      // Loop through paragraphs to find matches
+      for (const paragraph of paragraphs) {
+        if (paragraph.includes(searchTerm)) {
+          // Include the paragraph containing the search term
+          matchingParagraphs.push(paragraph);
+        }
+      }
+  
+      return matchingParagraphs;
+    } catch (error) {
+      throw error;
+    }
+  }
+  
+  // Controller function to search for text in the PDF
+  module.exports.researchPdf = async (req, res) => {
+    try {
+        const resourceId = req.params.resourceId; // Get the resource ID from request parameters
+        const searchText = req.query.searchText; // Get the search text from query parameters
+    
+        // Find the resource by ID
+        const resource = await resourcesModel.findById(resourceId);
+    
+        if (!resource) {
+          // If the resource doesn't exist, return an error response
+          return res.status(404).json({ message: 'Resource not found.' });
+        }
+
+  
+      if (!searchText) {
+        return res.status(400).json({ message: 'Search term is required.' });
+      }
+      const path = "public"+resource.path;
+      // Call the searchPdf function to perform the search
+      const matchingParagraphs = await searchPdf(searchText,path);
+  
+      if (matchingParagraphs.length > 0) {
+        res.status(200).json({ matchingParagraphs });
+      } else {
+        res.status(404).json({ message: 'No matching paragraphs found.' });
+      }
+    } catch (error) {
+      console.error('Error searching PDF:', error);
+      res.status(500).json({ message: 'An error occurred while searching the PDF.' });
+    }
+  };

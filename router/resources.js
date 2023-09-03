@@ -7,6 +7,7 @@ const {upload} = require("../middleware/upload");
 router.get('/',verifyToken,resourcesController.resources);
 router.post('/',verifyToken,upload,resourcesController.uploadDocument);
 router.delete('/:documentId', verifyToken, resourcesController.deleteDocument);
+router.get('/search/:resourceId', resourcesController.researchPdf);
 
 
 module.exports = router

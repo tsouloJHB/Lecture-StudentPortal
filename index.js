@@ -12,6 +12,9 @@ const MessageRoute = require("./router/message");
 const ResourcesRoute = require("./router/resources");
 const groupChatController = require("./controllers/groupChat");
 const {Server} = require('socket.io');
+const fs = require('fs');
+const pdf = require('pdf-parse');
+
 dotenv.config();
 connectDb();
 const bodyParser = require('body-parser');
@@ -114,6 +117,7 @@ io.on("connection",socket =>{
   });
 
 });
+
 
 module.exports = app;
 
