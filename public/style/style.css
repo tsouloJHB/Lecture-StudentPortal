@@ -552,6 +552,11 @@ a.add img {
   text-align: right;
   position: relative;
 }
+#errorDiv{
+  text-align: center;
+  color: red;
+  margin-bottom: 10px;
+}
 
 .msg-body ul li.repaly:before {
   display: block;

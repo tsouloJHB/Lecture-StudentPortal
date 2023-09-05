@@ -36,7 +36,7 @@ https://cdn.jsdelivr.net/npm/gotham-fonts@1.0.3/css/gotham-rounded.min.css
     <label for="SignUp">Signup</label>
     <label for="SignUplec">Lecture signup</label>
   </nav>
-
+  <div id="errorDiv"></div>
   <form action="/users/login" method="POST" id="SignInFormData">
     <input type="text" id="email-login" name="email" placeholder="Email">
     <input type="password" id="password-login" name="password" placeholder="Password">
@@ -83,7 +83,7 @@ https://cdn.jsdelivr.net/npm/gotham-fonts@1.0.3/css/gotham-rounded.min.css
     <input type="password" id="new-password" placeholder="New Password">
     
     <button type="button" title="Sing Up">Sign Up</button>
-    <div id="errorDiv"></div>
+ 
   </form>
 
 </section>
@@ -91,8 +91,10 @@ https://cdn.jsdelivr.net/npm/gotham-fonts@1.0.3/css/gotham-rounded.min.css
 
 <script>
   $(document).ready(function() {
+
     // Sign up button click event
     $('#SignUpFormData button').on('click', async function() {
+      $('#errorDiv').empty();
       const name = $('#name').val();
       const email = $('#email').val();
       const year = $('#year').val();
@@ -145,6 +147,7 @@ https://cdn.jsdelivr.net/npm/gotham-fonts@1.0.3/css/gotham-rounded.min.css
     //sign up lecture
 
     $('#SignUplecFormData button').on('click', async function() {
+      $('#errorDiv').empty();
       const name = $('#name-lec').val();
       const email = $('#email-lec').val();
       const year = "1";
@@ -195,6 +198,7 @@ https://cdn.jsdelivr.net/npm/gotham-fonts@1.0.3/css/gotham-rounded.min.css
     });
   });
   async function login() {
+            $('#errorDiv').empty();
             const email = document.getElementById('email-login').value;
             const password = document.getElementById('password-login').value;
             
@@ -217,6 +221,7 @@ https://cdn.jsdelivr.net/npm/gotham-fonts@1.0.3/css/gotham-rounded.min.css
                 }
             } else {
                 // Handle login failure, e.g., display an error message
+                $('#errorDiv').append(`<p>Incorrect password or email</p>`);
                 console.log('Login failed:', data);
             }
         }
