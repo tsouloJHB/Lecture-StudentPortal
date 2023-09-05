@@ -20,6 +20,9 @@ html {
   place-content: center;
   background: #eee;
 }
+a{
+  text-align: none;
+}
 .navbar-light .navbar-nav .nav-link {
   color: black !important;
 }
@@ -29,12 +32,16 @@ html {
   justify-content: center;
   width: 100%;
   margin-right: 150px;
+  
+}
+.navbar-brand{
+  margin-left: 50px;
 }
 .navbar-light .navbar-nav .sign-out-button{
   color: white !important;
 }
 .navbar-nav .sign-out-button {
-  background-color: blue; /* Set the background color to blue */
+  background-color: rgb(17, 213, 53); /* Set the background color to blue */
   color: white !important; /* Set the text color to white */
   padding: 5px 10px; /* Add padding for better button appearance */
   border-radius: 5px; /* Add rounded corners to the button */
