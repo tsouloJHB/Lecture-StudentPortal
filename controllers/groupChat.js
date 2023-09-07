@@ -45,7 +45,7 @@ module.exports.groupChat = async (req, res) => {
      const users = await this.getMembers(group.id);
      //get messages
      const messages = await messageController.getGroupMessages(group.id);
-     console.log(messages);
+   
      res.render('chat',{members:users,currentUser:req.user,messages,groupChatId:group._id});
    } catch (error) {
         console.log(error);

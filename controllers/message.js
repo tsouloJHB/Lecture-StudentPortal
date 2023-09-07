@@ -35,7 +35,8 @@ module.exports.addMessage = async(req,res) =>{
 module.exports.getGroupMessages = async (groupChatId) =>{
 
     try {
-        const messages = await MessageModel.find({groupChat:groupChatId});
+        const messages = await MessageModel.find({groupChat:groupChatId}).populate('senderId', 'name surname course year');
+      
         return messages;
     } catch (error) {
         console.log(error);

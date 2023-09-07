@@ -105,8 +105,9 @@
 
                                     <div class="modal-body sidebar">
                                         <div class="msg-body">
-                                            <ul>
                                             
+                                            <ul>
+                                                
                                                 <% function formatTime(timestamp) { %>
                                                     <!-- Define your time formatting logic here -->
                                                     <% const date = new Date(timestamp); %>
@@ -117,14 +118,16 @@
                                                 
                                                 <% messages.forEach(message => { %>
                                                     <% if (message.senderId.equals(currentUser._id)) { %>
+
                                                         <li class="repaly">
+                                                            <span class="time"></span>
                                                             <p><%= message.text %></p>
-                                                            <span class="time"><%= formatTime(message.createdAt) %></span>
+                                                            <span class="time"><span class="time"> <%= formatTime(message.createdAt) %></span>
                                                         </li>
                                                     <% } else { %>
                                                         <li class="sender">
                                                             <p><%= message.text %></p>
-                                                            <span class="time"><%= formatTime(message.createdAt) %></span>
+                                                            <span class="time"><span class="time"> <%= message.senderId.name %> <%= formatTime(message.createdAt) %></span>
                                                         </li>
                                                     <% } %>
                                                 <% }); %>                                        
