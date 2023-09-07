@@ -316,13 +316,21 @@ message-area
   width: 300px;
   float: left;
   padding: 15px;
+
 }
 
+.sidebar{
+  background-color: #2c2d31;
+}
+.sidebar2{
+  background-color: #0d0d0e;
+}
 .chat-area .modal-content {
   border: none;
   border-radius: 0;
   outline: 0;
   height: 100%;
+  
 }
 
 .chat-area .modal-dialog-scrollable {
@@ -583,6 +591,28 @@ a.add img {
   transform: rotate(37deg);
 }
 
+.modal-body .chat-lists .chat-list .profile-image{
+  border-radius: 50%;
+ 
+}
+.status-indicator {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+.space{
+  margin-bottom: 15px;
+}
+
+.online {
+  background-color: rgb(19, 230, 19);
+}
+
+.offline {
+  background-color: rgb(162, 162, 162);
+}
+
 .msg-body ul li.repaly p {
   color: #fff;
   font-size: 14px;
@@ -613,7 +643,7 @@ a.add img {
 
 .time {
   display: block;
-  color: #000;
+  color: #ffffff;
   font-size: 12px;
   line-height: 1.5;
   font-weight: 400;
@@ -837,10 +867,7 @@ button:focus {
   .msg-head .flex-shrink-0 img {
       height: 30px;
   }
-  .modal-body .chat-lists .chat-list .profile-image{
-    border-radius: 30%;
-    display: none;
-  }
+ 
 
   .send-box button {
       width: 28%;

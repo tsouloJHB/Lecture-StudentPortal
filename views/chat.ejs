@@ -28,7 +28,7 @@
                                        <p>Students</p>
                                     </div>
 
-                                    <div class="modal-body">
+                                    <div class="modal-body ">
                                         <!-- chat-list -->
                                         <div class="chat-lists">
                                             <div class="tab-content" id="myTabContent">
@@ -36,18 +36,33 @@
                                                     <!-- chat-list -->
                                                     <div class="chat-list">
                                             
+                                                        <div class="d-flex align-items-center space">
+                                                            <img class="img-fluid profile-image" width="20%" src="/images/default.jpg" alt="user img">
+                                                            <div class="flex-shrink-0">
+                                                            </div>
+                                                            <div class="flex-grow-1 ms-3">
+                                                                <h3><%= user.name %> <%= user.surname %> (you)</h3>
+                                                                <p><%= user.course %> <%= user.year %></p>
+                                                            </div>
+                                                            <div  class="status-indicator online"></div>
+                                                        </div>
+                                                        
+                                                        <% const currentUserID = user._id.toString(); %>
+                                                        <% members = members.filter(member => member._id.toString() !== currentUserID); %>
+                                                        
                                                         <% for (let member of members) { %>
                                                             <a href="#" class="d-flex align-items-center">
                                                                 <img class="img-fluid profile-image" width="20%" src="/images/default.jpg" alt="user img">
                                                                 <div class="flex-shrink-0">
-                                                                    
                                                                 </div>
                                                                 <div class="flex-grow-1 ms-3">
                                                                     <h3><%= member.name %> <%= member.surname %></h3>
                                                                     <p><%= member.course %> <%= member.year %></p>
                                                                 </div>
+                                                                <div login-user="<%= member._id %>" class="status-indicator offline"></div>
                                                             </a>
                                                         <% } %>
+                                                        
                                                         
                                                   
 
@@ -70,7 +85,7 @@
                         <!-- chatbox -->
                         <div class="chatbox">
                             <div class="modal-dialog-scrollable">
-                                <div class="modal-content">
+                                <div class="modal-content ">
                                     <div class="msg-head">
                                         <div class="row">
                                             <div class="col-8">
@@ -88,7 +103,7 @@
                                     </div>
 
 
-                                    <div class="modal-body">
+                                    <div class="modal-body sidebar">
                                         <div class="msg-body">
                                             <ul>
                                             

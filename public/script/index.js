@@ -31,12 +31,25 @@ socket.on("get-users", activeUsers => {
     localActiveUsers = activeUsers.filter(activeUser => activeUser.userId !== user._id);
 
     // Now, localActiveUsers contains active users without the current user
+    const statusIndicators = document.querySelectorAll('.status-indicator');
+    statusIndicators.forEach(statusIndicator => {
+        const memberId = statusIndicator.getAttribute('login-user');
+       
+        const isOnline = localActiveUsers.some(user => user.userId === memberId);
+
+        if (isOnline) {
+            // Change the status to "online" for the specific member
+            statusIndicator.classList.remove('offline');
+            statusIndicator.classList.add('online');
+        }
+    });
+
     console.log(localActiveUsers);
 });
 
 
 socket.on("receive-message",message =>{
-    console.log(message);
+ 
     displayMessage(message,false);
 });
 
@@ -45,6 +58,24 @@ socket.on("receive-message",message =>{
 socket.on("remove-user", userToRemove => {
     // Filter localActiveUsers to exclude the user with a matching socketId
     localActiveUsers = localActiveUsers.filter(user => user.socketId !== userToRemove);
+
+
+    const statusIndicators = document.querySelectorAll('.status-indicator');
+    statusIndicators.forEach(statusIndicator => {
+        const memberId = statusIndicator.getAttribute('login-user');
+        if(memberId === null){
+            return;
+        }
+        const isOnline = localActiveUsers.some(user => user.userId === memberId);
+       
+        if (!isOnline) {
+            // Change the status to "online" for the specific member
+            statusIndicator.classList.remove('online');
+            statusIndicator.classList.add('offline');
+        }
+    });
+
+
     console.log(localActiveUsers);
 });
 
